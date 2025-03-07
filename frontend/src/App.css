@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper-button-prev {
+  display: none !important;
+}
+.swiper-button-next{
+  @apply bg-white p-5 rounded-full z-50 shadow-md
+}
+
+.swiper-button-prev:after, .swiper-button-next:after{
+  font-size: 16px !important;
+}
+
+.btn-primary {
+  @apply bg-primary  px-12 py-2 rounded-md text-base font-secondary font-bold hover:bg-secondary hover:text-white transition-all duration-200 cursor-pointer
+}
+
+.html{
+ scroll-behavior: smooth;
+}
+/* Light Mode */
+:root {
+  --bg-color: white;
+  --text-color: black;
+}
+
+/* Dark Mode */
+.dark {
+  --bg-color: #1a202c;
+  --text-color: #f7fafc;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  @apply bg-white text-darkText dark:bg-darkBG dark:text-lightText;
+
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 2s ease-in-out;
+}
