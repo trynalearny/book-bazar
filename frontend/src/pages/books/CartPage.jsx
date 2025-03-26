@@ -7,7 +7,7 @@ import { clearCart, removeFromCart, increaseQuantity, decreaseQuantity } from '.
 const CartPage = () => {
     const cartItems = useSelector(state => state.cart.cartItems);
     const dispatch = useDispatch();
-    console.log(cartItems)
+    console.log()
 
     const totalPrice = cartItems.reduce((acc, item) => acc + item.newPrice * item.quantity, 0).toFixed(2);
 
@@ -62,6 +62,7 @@ const CartPage = () => {
                                                 <div>
                                                     <div className="flex flex-wrap justify-between text-base font-medium text-gray-900">
                                                         <h3>
+                                                            
                                                             <Link to='/'>{product?.title}</Link>
                                                         </h3>
                                                         <p className="sm:ml-4">Rs.{product?.newPrice}</p>
@@ -113,7 +114,7 @@ const CartPage = () => {
                             className={`flex items-center justify-center rounded-md border border-transparent px-6 py-3 text-base font-medium text-white shadow-sm ${cartItems.length > 0 ? "bg-indigo-600 hover:bg-indigo-700" : "bg-gray-400 cursor-not-allowed"}`}
                             onClick={(e) => {
                                 if (cartItems.length === 0) {
-                                    e.preventDefault(); // Prevent navigation if the cart is empty
+                                    e.preventDefault(); 
                                 }
                             }}
                         >
