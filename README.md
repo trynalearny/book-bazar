@@ -1,6 +1,6 @@
 # Book-Bazzar
 
-Book-Bazzar is an online bookstore where users can browse, buy books. The platform supports both buyers  offering a seamless book trading experience.
+Book-Bazzar is an online bookstore where users can browse, buy books. The platform supports  buyers  offering a seamless book trading experience.
 
 ## Features
 - **User Authentication**: Sign up, log in, and manage accounts.
