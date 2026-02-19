@@ -10,30 +10,26 @@ require('dotenv').config();
 // Middleware
 app.use(express.json());
 // CORS: allow production Netlify site and Netlify deploy-preview hostnames
-app.use(cors({ 
-    origin: function(origin, callback) {
-        // Log origin for debugging (will show in server logs on Render)
-        console.log('CORS request from origin:', origin);
-
-        // Allow requests with no origin (curl, server-to-server)
-        if (!origin) return callback(null, true);
-
-        if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
+    // Production: allow Netlify production + deploy-preview hosts only
+    app.use(cors({ 
+        origin: function(origin, callback) {
+            console.log('CORS request from origin:', origin);
+            if (!origin) return callback(null, true);
             const prodHost = 'https://bookbazarr.netlify.app';
             const previewRegex = /^https:\/\/.*--bookbazarr\.netlify\.app$/;
             if (origin === prodHost || previewRegex.test(origin)) {
                 return callback(null, true);
             }
             return callback(new Error('Not allowed by CORS'), false);
-        }
-
-        // Development: allow localhost (any port) and 127.0.0.1
-        const localhostRegex = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
-        if (localhostRegex.test(origin)) return callback(null, true);
-        return callback(new Error('Not allowed by CORS'), false);
-    },
-    credentials: true
-}));
+        },
+        credentials: true
+    }));
+} else {
+    // Development: allow all origins so local frontend can call backend without CORS blocks
+    app.use(cors({ origin: true, credentials: true }));
+    console.log('CORS: development mode - allowing all origins');
+}
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from public folder
