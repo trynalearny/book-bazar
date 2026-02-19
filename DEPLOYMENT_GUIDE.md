@@ -3,6 +3,7 @@
 ## Backend Deployment on Render
 
 ### Step 1: Push to GitHub
+
 ```bash
 git add .
 git commit -m "Setup Render deployment"
@@ -10,6 +11,7 @@ git push origin main
 ```
 
 ### Step 2: Create Render Account
+
 1. Go to [render.com](https://render.com)
 2. Sign up with GitHub (easier)
 3. Connect your GitHub account
@@ -28,6 +30,7 @@ git push origin main
    - **Plan**: Free (or your preference)
 
 5. Click **"Advanced"** and add Environment Variables:
+
    ```
    DB_URL = your-mongodb-atlas-connection-string
    JWT_SECRET_KEY = your-jwt-secret-key
@@ -62,15 +65,22 @@ git push origin main
 Once you have your Render backend URL, update `backend/index.js`:
 
 ```javascript
-app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-        ? ['https://your-netlify-site.netlify.app', 'https://book-bazar-backend.onrender.com']
-        : ['http://localhost:5173'],
-    credentials: true
-}));
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === "production"
+        ? [
+            "https://your-netlify-site.netlify.app",
+            "https://book-bazar-backend.onrender.com",
+          ]
+        : ["http://localhost:5173"],
+    credentials: true,
+  }),
+);
 ```
 
 Then push the changes:
+
 ```bash
 git add backend/index.js
 git commit -m "Update CORS for production"
@@ -90,18 +100,22 @@ git push origin main
 ## Troubleshooting
 
 ### 401 Unauthorized on Admin Login
+
 - Check if MongoDB is accessible from Render
 - Verify JWT_SECRET_KEY is set in Render environment variables
 
 ### CORS Errors
+
 - Make sure VITE_API_URL in Netlify matches your Render backend URL
 - Update CORS origins in backend/index.js
 
 ### Page Not Found (404)
+
 - Make sure netlify.toml exists in frontend folder
 - Redeploy on Netlify after updating
 
 ### MongoDB Connection Issues
+
 - Verify DB_URL in Render environment
 - Add Render IP to MongoDB Atlas whitelist (0.0.0.0/0)
 
