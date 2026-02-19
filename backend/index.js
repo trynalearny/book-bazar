@@ -27,8 +27,9 @@ app.use(cors({
             return callback(new Error('Not allowed by CORS'), false);
         }
 
-        // Development
-        if (origin === 'http://localhost:5173') return callback(null, true);
+        // Development: allow localhost (any port) and 127.0.0.1
+        const localhostRegex = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
+        if (localhostRegex.test(origin)) return callback(null, true);
         return callback(new Error('Not allowed by CORS'), false);
     },
     credentials: true
