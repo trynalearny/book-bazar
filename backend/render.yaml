@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: book-bazar-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_URL
+        fromDatabase:
+          name: book-bazar-db
+          property: connectionString
+      - key: JWT_SECRET_KEY
+        sync: false
+      - key: PORT
+        value: 5000
+
+databases:
+  - name: book-bazar-db
+    databaseName: book_bazar
+    region: oregon
+    plan: free
