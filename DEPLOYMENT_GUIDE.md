@@ -25,7 +25,7 @@ git push origin main
    - **Name**: `book-bazar-backend`
    - **Root Directory**: `backend`
    - **Environment**: `Node`
-   - **Build Command**: `npm install`
+   - **Build Command**: `npm ci --omit=dev && npm rebuild bcrypt`
    - **Start Command**: `npm start`
    - **Plan**: Free (or your preference)
 
