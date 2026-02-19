@@ -9,10 +9,28 @@ require('dotenv').config();
 
 // Middleware
 app.use(express.json());
+// CORS: allow production Netlify site and Netlify deploy-preview hostnames
 app.use(cors({ 
-    origin: process.env.NODE_ENV === 'production' 
-        ? ['https://bookbazarr.netlify.app/', /^https:\/\/.*--bookbazarr\.netlify\.app$/]
-        : ['http://localhost:5173'],
+    origin: function(origin, callback) {
+        // Log origin for debugging (will show in server logs on Render)
+        console.log('CORS request from origin:', origin);
+
+        // Allow requests with no origin (curl, server-to-server)
+        if (!origin) return callback(null, true);
+
+        if (process.env.NODE_ENV === 'production') {
+            const prodHost = 'https://bookbazarr.netlify.app';
+            const previewRegex = /^https:\/\/.*--bookbazarr\.netlify\.app$/;
+            if (origin === prodHost || previewRegex.test(origin)) {
+                return callback(null, true);
+            }
+            return callback(new Error('Not allowed by CORS'), false);
+        }
+
+        // Development
+        if (origin === 'http://localhost:5173') return callback(null, true);
+        return callback(new Error('Not allowed by CORS'), false);
+    },
     credentials: true
 }));
 app.use(express.urlencoded({ extended: true }));
