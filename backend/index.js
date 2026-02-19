@@ -9,7 +9,7 @@ require('dotenv').config();
 
 // Middleware
 app.use(express.json());
-app.use(cors({
+app.use(cors({ 
     origin: process.env.NODE_ENV === 'production' 
         ? ['https://bookbazarr.netlify.app', /^https:\/\/.*--bookbazarr\.netlify\.app$/]
         : ['http://localhost:5173'],
