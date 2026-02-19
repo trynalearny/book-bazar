@@ -44,7 +44,6 @@ async function main() {
     
     // Create default admin if doesn't exist
     const User = require('./src/users/user.model');
-    const bcrypt = require('bcrypt');
     
     const existingAdmin = await User.findOne({ username: 'admin' });
     if (!existingAdmin) {
