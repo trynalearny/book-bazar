@@ -71,7 +71,7 @@ app.use(
       process.env.NODE_ENV === "production"
         ? [
             "https://your-netlify-site.netlify.app",
-            "https://book-bazar-backend.onrender.com",
+            "https://book-bazar.onrender.com",
           ]
         : ["http://localhost:5173"],
     credentials: true,
