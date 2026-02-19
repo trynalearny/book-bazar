@@ -9,7 +9,7 @@ import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import BookCard from '../books/BooksCard';
+import Bookscard from '../books/Bookscard';
 import { useFetchAllBooksQuery } from '../../redux/features/books/booksApi';
 
 
@@ -50,7 +50,7 @@ const Recommend = () => {
                 {
                    books.length > 0 && books.slice(8, 18).map((book, index) => (
                         <SwiperSlide key={index}>
-                            <BookCard  book={book} />
+                            <Bookscard  book={book} />
                         </SwiperSlide>
                     ))
                 }
