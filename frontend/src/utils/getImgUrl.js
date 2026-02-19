@@ -1,4 +1,4 @@
-function getImgUrl (name){
-    return new URL(`../assets/books/${name}`,import.meta.url)
+function getImgUrl(name) {
+    return `http://localhost:5000/images/${name}`;
 }
-export {getImgUrl}
+export { getImgUrl }

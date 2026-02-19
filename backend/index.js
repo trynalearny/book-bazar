@@ -15,6 +15,10 @@ app.use(cors({
 }));
 app.use(express.urlencoded({ extended: true }));
 
+// Serve static files from public folder
+const path = require('path');
+app.use('/images', express.static(path.join(__dirname, '../frontend/src/assets/books')));
+
 // Routes
 const bookRoutes = require('./src/books/book.route');
 const orderRoutes = require("./src/orders/order.route");
@@ -35,6 +39,23 @@ app.get('/', (req, res) => {
 async function main() {
     await mongoose.connect(process.env.DB_URL);
     console.log("MongoDB connected successfully");
+    
+    // Create default admin if doesn't exist
+    const User = require('./src/users/user.model');
+    const bcrypt = require('bcrypt');
+    
+    const existingAdmin = await User.findOne({ username: 'admin' });
+    if (!existingAdmin) {
+        const defaultAdmin = new User({
+            username: 'admin',
+            password: 'kasturi',
+            role: 'admin'
+        });
+        await defaultAdmin.save();
+        console.log('Default admin created: username=admin, password=kasturi');
+    } else {
+        console.log('Admin user already exists');
+    }
 }
 
 main().catch(err => console.log(err));
